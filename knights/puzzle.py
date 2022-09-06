@@ -24,8 +24,10 @@ knowledge0 = And(
 # B says nothing.
 knowledge1 = And(
     # TODO
-    Or(AKnight, AKnave),
+    Or(AKnight,AKnave),
+    Or(BKnight,BKnave),
     Not(And(AKnight,AKnave)),
+    Not(And(BKnight,BKnave)),
     Implication(Not(And(AKnave,BKnave)), AKnave),
     Implication(Implication(Not(And(AKnave,BKnave)), AKnave), BKnight)
 )
@@ -36,7 +38,11 @@ knowledge1 = And(
 knowledge2 = And(
     # TODO
     Or(AKnight, AKnave),
+    Or(BKnight,BKnave),
     Not(And(AKnight,AKnave)),
+    Not(And(BKnight,BKnave)),
+    Implication(Implication(And(BKnight,AKnave), BKnight), AKnave),
+    Implication(AKnave, BKnight)
 )
 
 # Puzzle 3
@@ -46,6 +52,16 @@ knowledge2 = And(
 # C says "A is a knight."
 knowledge3 = And(
     # TODO
+    Or(AKnight,AKnave),
+    Or(BKnight,BKnave),
+    Or(CKnight,CKnave),
+    Not(And(AKnight,AKnave)),
+    Not(And(BKnight,BKnave)),
+    Not(And(CKnight,CKnave)),
+    Implication(Or(AKnight,AKnave), AKnight),
+    Implication(AKnight, CKnight),
+    Implication(CKnave, BKnight),
+    Implication(Not(CKnave), BKnave)
 )
 
 
@@ -54,8 +70,8 @@ def main():
     puzzles = [
         ("Puzzle 0", knowledge0),
         ("Puzzle 1", knowledge1),
-        # ("Puzzle 2", knowledge2),
-        # ("Puzzle 3", knowledge3)
+        ("Puzzle 2", knowledge2),
+        ("Puzzle 3", knowledge3)
     ]
     for puzzle, knowledge in puzzles:
         print(puzzle)
